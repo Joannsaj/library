@@ -34,3 +34,5 @@ class LibrarianSignUpView(CreateView):
         login(self.request, user)
         return redirect('index')
 
+def index(request):
+    return render(request,'index.html')
