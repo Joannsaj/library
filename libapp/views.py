@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, CreateView
 from .models import User
-from .forms import StudentSignUpForm, LibrarianSignUpForm, LibraryForm
+from .forms import StudentSignUpForm, LibrarianSignUpForm, LibraryForm, BooksForm
 from django.contrib.auth import login
 
 class SignUpView(TemplateView):
@@ -45,7 +45,19 @@ def library(request):
             library = form.save(commit=False)
             library.librarian = request.user
             library.save()
-            return redirect('index')
+            return redirect('book')
     else:
         form = LibraryForm()
     return render(request,'library.html',{"form":form})
+
+def book(request):    
+    if request.method == 'POST':
+        form = BooksForm(request.POST,request.FILES)
+        if form.is_valid() :
+            book = form.save(commit=False)
+            book.library = library
+            book.save()
+            return redirect('index')
+    else:
+        form = BooksForm()
+    return render(request,'book.html',{"form":form})
