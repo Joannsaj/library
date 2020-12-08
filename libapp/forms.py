@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.db import transaction
 from django.forms.utils import ValidationError
-from .models import User, Library
+from .models import User, Library, Books
 
 class LibrarianSignUpForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
@@ -32,3 +32,8 @@ class LibraryForm(forms.ModelForm):
     class Meta:
         model = Library
         fields = ('librarian','name','location',)                
+
+class BooksForm(forms.ModelForm):
+    class Meta:
+        model = Books
+        fields = ('title','author','description',)                        
