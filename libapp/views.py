@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, CreateView
 from .models import User
 from .forms import StudentSignUpForm, LibrarianSignUpForm
+from django.contrib.auth import login
 
 class SignUpView(TemplateView):
     template_name = 'registration/signup.html'

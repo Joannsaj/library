@@ -23,4 +23,5 @@ urlpatterns = [
     path('accounts/signup/', views.SignUpView.as_view(), name='signup'),
     path('accounts/signup/student/', views.StudentSignUpView.as_view(), name='student_signup'),
     path('accounts/signup/librarian/', views.LibrarianSignUpView.as_view(), name='librarian_signup'),
+    path('',views.index, name='index')
 ]
