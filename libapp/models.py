@@ -13,3 +13,13 @@ class Library(models.Model):
 
     def __str__(self):
         return self.name
+
+class Books(models.Model):
+    title = models.CharField(max_length=60)
+    author = models.CharField(max_length=60)
+    description = models.TextField(max_length=250)
+    date = models.DateTimeField(auto_now_add=True)
+    library = models.ForeignKey(Library, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.title
