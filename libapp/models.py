@@ -12,7 +12,7 @@ class Library(models.Model):
     location = models.CharField(max_length=60)
 
     def __str__(self):
-        return self.name
+        return self.librarian
 
 class Books(models.Model):
     title = models.CharField(max_length=60)
@@ -30,4 +30,4 @@ class Borrow(models.Model):
     date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.title        
+        return self.book        
