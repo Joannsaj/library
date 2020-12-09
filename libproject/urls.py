@@ -29,4 +29,5 @@ urlpatterns = [
     path('library',views.library, name='library'),
     path('book',views.book, name='book'),
     path('borrow',views.borrow, name='borrow'),
+    path('books', views.view_books, name='view_books'),
 ]

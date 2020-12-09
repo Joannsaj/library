@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, CreateView
-from .models import User
+from .models import User, Books
 from .forms import StudentSignUpForm, LibrarianSignUpForm, LibraryForm, BooksForm, BorrowForm
 from django.contrib.auth import login
 
@@ -74,3 +74,6 @@ def borrow(request):
         form = BorrowForm()
     return render(request,'borrow.html',{"form":form})
 
+def view_books(request):
+    books = Books.objects.all()
+    return render(request,'view_books.html',{"books":books})
