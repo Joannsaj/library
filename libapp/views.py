@@ -4,7 +4,7 @@ from .models import User, Books, Borrow
 from .forms import StudentSignUpForm, LibrarianSignUpForm, LibraryForm, BooksForm, BorrowForm
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
-from ..decorators import student_required, librarian_required
+from .decorators import student_required, librarian_required
 
 class SignUpView(TemplateView):
     template_name = 'registration/signup.html'
