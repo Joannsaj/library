@@ -28,5 +28,5 @@ urlpatterns = [
     path('',views.index, name='index'),
     path('library',views.library, name='library'),
     path('book',views.book, name='book'),
-    
+    path('borrow',views.borrow, name='borrow'),
 ]

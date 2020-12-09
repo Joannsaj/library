@@ -26,8 +26,7 @@ class Books(models.Model):
 
 class Borrow(models.Model):
     borrower = models.ForeignKey(User, on_delete=models.CASCADE)
-    title = models.CharField(max_length=60)
-    author = models.CharField(max_length=60)
+    book = models.ForeignKey(Books, on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

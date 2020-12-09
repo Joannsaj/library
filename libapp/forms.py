@@ -41,4 +41,4 @@ class BooksForm(forms.ModelForm):
 class BorrowForm(forms.ModelForm):
     class Meta:
         model = Borrow
-        fields = ('title','author',)                
+        fields = ('book',)                

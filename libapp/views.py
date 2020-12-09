@@ -73,3 +73,4 @@ def borrow(request):
     else:
         form = BorrowForm()
     return render(request,'borrow.html',{"form":form})
+
