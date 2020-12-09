@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, CreateView
 from .models import User
-from .forms import StudentSignUpForm, LibrarianSignUpForm, LibraryForm, BooksForm
+from .forms import StudentSignUpForm, LibrarianSignUpForm, LibraryForm, BooksForm, BorrowForm
 from django.contrib.auth import login
 
 class SignUpView(TemplateView):
@@ -61,3 +61,15 @@ def book(request):
     else:
         form = BooksForm()
     return render(request,'book.html',{"form":form})
+
+def borrow(request):    
+    if request.method == 'POST':
+        form = BorrowForm(request.POST,request.FILES)
+        if form.is_valid() :
+            borrow = form.save(commit=False)
+            borrow.borrower = request.user
+            borrow.save()
+            return redirect('index')
+    else:
+        form = BorrowForm()
+    return render(request,'borrow.html',{"form":form})
