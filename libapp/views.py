@@ -55,7 +55,7 @@ def book(request):
         form = BooksForm(request.POST,request.FILES)
         if form.is_valid() :
             book = form.save(commit=False)
-            book.library = library
+            book.librarian = library
             book.save()
             return redirect('index')
     else:

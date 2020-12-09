@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% load bootstrap4 %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 col-sm-10 col-12">
+        <form method="post" novalidate>
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{% url 'index' %}">
+            {% bootstrap_form form %}
+            <button type="submit" class="btn btn-success">Login</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

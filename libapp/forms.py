@@ -31,9 +31,9 @@ class StudentSignUpForm(UserCreationForm):
 class LibraryForm(forms.ModelForm):
     class Meta:
         model = Library
-        fields = ('librarian','name','location',)                
+        fields = ('name','location',)                
 
 class BooksForm(forms.ModelForm):
     class Meta:
         model = Books
-        fields = ('title','author','description',)                        
+        fields = ('title','author','description','library')                        
