@@ -23,3 +23,12 @@ class Books(models.Model):
 
     def __str__(self):
         return self.title
+
+class Borrow(models.Model):
+    borrower = models.ForeignKey(User, on_delete=models.CASCADE)
+    title = models.CharField(max_length=60)
+    author = models.CharField(max_length=60)
+    date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title        

@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from libapp import views
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -23,6 +24,7 @@ urlpatterns = [
     path('accounts/signup/', views.SignUpView.as_view(), name='signup'),
     path('accounts/signup/student/', views.StudentSignUpView.as_view(), name='student_signup'),
     path('accounts/signup/librarian/', views.LibrarianSignUpView.as_view(), name='librarian_signup'),
+    path('accounts/logsout/', auth_views.LogoutView.as_view(next_page = '/accounts/login/'), name='logout'),
     path('',views.index, name='index'),
     path('library',views.library, name='library'),
     path('book',views.book, name='book'),
