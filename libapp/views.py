@@ -39,8 +39,8 @@ class LibrarianSignUpView(CreateView):
         login(self.request, user)
         return redirect('library')
 
-# def index(request):
-#     return render(request,'index.html')
+def index(request):
+    return render(request,'index.html')
 
 @login_required(login_url='/accounts/login/')
 @librarian_required
