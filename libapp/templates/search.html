@@ -1,0 +1,28 @@
+{%extends 'base.html'%}
+{% load bootstrap4 %}
+{% block content %}
+<div class="container">
+
+    <div class="row">
+        {% if books %}
+        <h2>Found {{ books|length }} of searched term {{message}}</h2>
+        {% else %}
+        <h2> Found 0 users for the search term {{message}}</h2>
+        {% endif %}
+
+    </div>
+
+    <div class="row">
+        {% if books %}
+        {% for item in books %}
+        <div class="col-md-2 mr-1 mt-1">
+            <i class="fa fa-book  fa-5x"></i>
+            <h3>Title: {{item.title}}</h3>
+            <h5>Author: {{item.author}}</h5>
+            <h5>Description: {{item.description}}</h5>
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
