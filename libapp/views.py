@@ -5,6 +5,7 @@ from .forms import StudentSignUpForm, LibrarianSignUpForm, LibraryForm, BooksFor
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from .decorators import student_required, librarian_required
+from django.core.exceptions import ObjectDoesNotExist
 
 class SignUpView(TemplateView):
     template_name = 'registration/signup.html'
@@ -40,7 +41,7 @@ class LibrarianSignUpView(CreateView):
 def index(request):
     return render(request,'index.html')
 
-@login_required
+@login_required(login_url='/accounts/login/')
 @librarian_required
 def library(request):    
     if request.method == 'POST':
@@ -54,7 +55,7 @@ def library(request):
         form = LibraryForm()
     return render(request,'library.html',{"form":form})
 
-@login_required
+@login_required(login_url='/accounts/login/')
 @librarian_required
 def book(request):    
     if request.method == 'POST':
@@ -68,7 +69,7 @@ def book(request):
         form = BooksForm()
     return render(request,'book.html',{"form":form})
 
-@login_required
+@login_required(login_url='/accounts/login/')
 @student_required
 def borrow(request):    
     if request.method == 'POST':
@@ -100,3 +101,24 @@ def search_results(request):
     else:
         message = "You haven't searched for any term"
         return render(request, 'search.html',{"message":message})
+
+@login_required(login_url='/accounts/login/')
+def get_book(request, id):
+    try:
+        book = Books.objects.get(id = id)
+        if request.method == 'POST':
+        form = BorrowForm(request.POST,request.FILES)
+            if form.is_valid() :
+                borrow = form.save(commit=False)
+                borrow.borrower = request.user
+                borrow.book = book.title
+                borrow.save()
+                return redirect('index')
+        else:
+            form = BorrowForm()
+        
+    except ObjectDoesNotExist:
+        raise Http404()
+    return render(request,"details.html", {"book":book,  "form":form, })
+
+        
