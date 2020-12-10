@@ -40,8 +40,8 @@ class Borrow(models.Model):
         return self.book        
 
 class Return(models.Model):
-    book = models.ForeignKey(Borrow, on_delete=models.CASCADE)
+    returned_book = models.ForeignKey(Borrow, on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.book            
+        return self.date            

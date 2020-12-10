@@ -7,10 +7,12 @@
     <div class="row">
         {% for item in books %}
         <div class="col-md-4 mr-1 mt-1">
-            <i class="fa fa-book  fa-5x"></i>
-            <h3>Title: {{item.book}}</h3>
-            <h5>By: {{item.borrower}}</h5>
-            <h5>Date: {{item.date|date}}</h5>
+            <a href="#" class="text-dark">
+                <i class="fa fa-book  fa-5x"></i>
+                <h3>Title: {{item.book}}</h3>
+                <h5>By: {{item.borrower}}</h5>
+                <h5>Date: {{item.date|date}}</h5>
+            </a>
         </div>
         {% endfor %}
     </div>

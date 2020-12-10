@@ -6,12 +6,11 @@
     <div class="row">
         {% for item in books %}
         <div class="col-md-2 mr-1 mt-1">
-            <i class="fa fa-book  fa-5x"></i>
-            <a href="{% url 'get_book' item.id %}">
+            <a href="{% url 'get_book' item.id %}" class="text-dark">
+                <i class="fa fa-book  fa-5x"></i>
                 <h3>Title: {{item.title}}</h3>
+                <h5>Author: {{item.author}}</h5>
             </a>
-            <h5>Author: {{item.author}}</h5>
-            <p>{{item.id}}</p>
         </div>
         {% endfor %}
     </div>

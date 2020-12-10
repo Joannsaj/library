@@ -33,4 +33,6 @@ urlpatterns = [
     path('search', views.search_results, name= 'search'),
     path('book/<int:book_id>', views.get_book, name='get_book'),
     path('borrowed', views.borrowed_books, name='borrowed'),
+    # path('return/<int:book_id>',views.return_book, name='return'),
+    # path('returned', views.returned_books, name='returned',)
 ]

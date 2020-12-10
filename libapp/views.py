@@ -128,7 +128,7 @@ def get_book(request, book_id):
 
 @login_required(login_url='/accounts/login/')
 @librarian_required
-def return_book(request):
+def return_book(request, book_id):
     try:
         borrowed = Borrow.objects.get(id = book_id)
         if request.method == 'POST':
@@ -139,7 +139,7 @@ def return_book(request):
                 returned.save()
                 return redirect('borrowed')
         else:
-            form = BorrowForm()
+            form = ReturnForm()
         
     except ObjectDoesNotExist:
         raise Http404()
