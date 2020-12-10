@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-sm-10 col-12">
+            <h2 class="text-center">Return a Book</h2>
+            <i class="fa fa-book  fa-5x"></i>
+            <h3>Title: {{borrowed.book}}</h3>
+            <h5>By: {{borrowed.borrower}}</h5>
+            <h5>On: {{borrowed.date}}</h5>
+            <form method="post">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+                <button type="submit" class="btn btn-success">Return</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

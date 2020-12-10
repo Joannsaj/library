@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, CreateView
-from .models import User, Books, Borrow
+from .models import User, Books, Borrow, Return
 from .forms import StudentSignUpForm, LibrarianSignUpForm, LibraryForm, BooksForm, BorrowForm, ReturnForm
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
@@ -126,6 +126,8 @@ def get_book(request, book_id):
         raise Http404()
     return render(request,"details.html", {"book":book,  "form":form, })
 
+@login_required(login_url='/accounts/login/')
+@librarian_required
 def return_book(request):
     try:
         borrowed = Borrow.objects.get(id = book_id)
@@ -142,3 +144,9 @@ def return_book(request):
     except ObjectDoesNotExist:
         raise Http404()
     return render(request,"return.html", {"borrowed":borrowed,  "form":form, })
+
+@login_required(login_url='/accounts/login/')
+@librarian_required    
+def returned_books(request):
+    books = Return.objects.all()
+    return render(request,'returned_books.html',{"books":books})

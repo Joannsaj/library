@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+
+{% block content %}
+<div class="container">
+    <h2>Returned Books</h2>
+    <div class="row">
+        {% for item in returned %}
+        <div class="col-md-4 mr-1 mt-1">
+            <i class="fa fa-book  fa-5x"></i>
+            <h3>Title: {{item.book}}</h3>
+            <h5>Date: {{item.date|date}}</h5>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
