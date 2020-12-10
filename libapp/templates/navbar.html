@@ -22,13 +22,40 @@
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu" role="menu">
-
+                        {% if user.is_librarian %}
+                        <li>
+                            <a href="{% url 'library' %}">Create Library</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'book' %}">Add Books</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'view_books' %}">View Books</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'borrowed' %}">Borrowed books</a>
+                        </li>
                         <li>
                             <a href="/accounts/password/change">Change Password</a>
                         </li>
                         <li>
                             <a href="{% url 'logout' %}">Logout</a>
                         </li>
+                        {% else %}
+                        <li>
+                            <a href="{% url 'view_books' %}">View Books</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'borrow' %}">Borrow</a>
+                        </li>
+                        <li>
+                            <a href="/accounts/password/change">Change Password</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'logout' %}">Logout</a>
+                        </li>
+                        {% endif %}
+
                     </ul>
                 </li>
             </ul>
