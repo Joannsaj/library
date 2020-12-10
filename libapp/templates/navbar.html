@@ -1,6 +1,6 @@
 {% load static %}
 <nav class="navbar navbar-expand-md navbar-secondary page-padding">
-    <h2><a class="navbar-brand text-dark " href="{%url 'index' %}"
+    <h2><a class="navbar-brand text-dark " href="{%url 'view_books' %}"
             style="font-weight: bolder;font-family: 'Pacifico', cursive;">Library<i class="fa fa-home"></i></a></h2>
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -11,7 +11,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto mr-4">
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'index' %}">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="{% url 'view_books' %}">Home <span class="sr-only">(current)</span></a>
             </li>
 
             {% if user.is_authenticated %}

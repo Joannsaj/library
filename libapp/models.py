@@ -33,7 +33,7 @@ class Books(models.Model):
 
 class Borrow(models.Model):
     borrower = models.ForeignKey(User, on_delete=models.CASCADE)
-    book = models.ForeignKey(Books, on_delete=models.CASCADE)
+    book = models.ForeignKey(Books, on_delete=models.CASCADE, null=True)
     date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

@@ -6,6 +6,7 @@ from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from .decorators import student_required, librarian_required
 from django.core.exceptions import ObjectDoesNotExist
+from django.http import Http404
 
 class SignUpView(TemplateView):
     template_name = 'registration/signup.html'
@@ -22,7 +23,7 @@ class StudentSignUpView(CreateView):
     def form_valid(self, form):
         user = form.save()
         login(self.request, user)
-        return redirect('index')
+        return redirect('view_books')
 
 class LibrarianSignUpView(CreateView):
     model = User
@@ -38,8 +39,8 @@ class LibrarianSignUpView(CreateView):
         login(self.request, user)
         return redirect('library')
 
-def index(request):
-    return render(request,'index.html')
+# def index(request):
+#     return render(request,'index.html')
 
 @login_required(login_url='/accounts/login/')
 @librarian_required
@@ -64,7 +65,7 @@ def book(request):
             book = form.save(commit=False)
             book.librarian = library
             book.save()
-            return redirect('index')
+            return redirect('view_books')
     else:
         form = BooksForm()
     return render(request,'book.html',{"form":form})
@@ -78,7 +79,7 @@ def borrow(request):
             borrow = form.save(commit=False)
             borrow.borrower = request.user
             borrow.save()
-            return redirect('index')
+            return redirect('view_books')
     else:
         form = BorrowForm()
     return render(request,'borrow.html',{"form":form})
@@ -102,18 +103,18 @@ def search_results(request):
         message = "You haven't searched for any term"
         return render(request, 'search.html',{"message":message})
 
-@login_required(login_url='/accounts/login/')
-def get_book(request, id):
+# @login_required(login_url='/accounts/login/')
+def get_book(request, book_id):
     try:
-        book = Books.objects.get(id = id)
+        book = Books.objects.get(id = book_id)
         if request.method == 'POST':
-        form = BorrowForm(request.POST,request.FILES)
+            form = BorrowForm(request.POST,request.FILES)
             if form.is_valid() :
                 borrow = form.save(commit=False)
                 borrow.borrower = request.user
-                borrow.book = book.title
+                borrow.title = book.title
                 borrow.save()
-                return redirect('index')
+                return redirect('view_books')
         else:
             form = BorrowForm()
         
