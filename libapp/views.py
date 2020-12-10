@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, CreateView
 from .models import User, Books, Borrow
-from .forms import StudentSignUpForm, LibrarianSignUpForm, LibraryForm, BooksForm, BorrowForm
+from .forms import StudentSignUpForm, LibrarianSignUpForm, LibraryForm, BooksForm, BorrowForm, ReturnForm
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from .decorators import student_required, librarian_required
@@ -84,10 +84,13 @@ def borrow(request):
         form = BorrowForm()
     return render(request,'borrow.html',{"form":form})
 
+@login_required(login_url='/accounts/login/')
 def view_books(request):
     books = Books.objects.all()
     return render(request,'view_books.html',{"books":books})
 
+@login_required(login_url='/accounts/login/')
+@librarian_required
 def borrowed_books(request):
     books = Borrow.objects.all()
     return render(request,'borrowed_books.html',{"books":books})
@@ -103,7 +106,8 @@ def search_results(request):
         message = "You haven't searched for any term"
         return render(request, 'search.html',{"message":message})
 
-# @login_required(login_url='/accounts/login/')
+@login_required(login_url='/accounts/login/')
+@student_required
 def get_book(request, book_id):
     try:
         book = Books.objects.get(id = book_id)
@@ -122,4 +126,19 @@ def get_book(request, book_id):
         raise Http404()
     return render(request,"details.html", {"book":book,  "form":form, })
 
+def return_book(request):
+    try:
+        borrowed = Borrow.objects.get(id = book_id)
+        if request.method == 'POST':
+            form = ReturnForm(request.POST,request.FILES)
+            if form.is_valid() :
+                returned = form.save(commit=False)
+                returned.book = borrowed.book
+                returned.save()
+                return redirect('borrowed')
+        else:
+            form = BorrowForm()
         
+    except ObjectDoesNotExist:
+        raise Http404()
+    return render(request,"return.html", {"borrowed":borrowed,  "form":form, })

@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.db import transaction
 from django.forms.utils import ValidationError
-from .models import User, Library, Books, Borrow
+from .models import User, Library, Books, Borrow, Return
 
 class LibrarianSignUpForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
@@ -41,4 +41,9 @@ class BooksForm(forms.ModelForm):
 class BorrowForm(forms.ModelForm):
     class Meta:
         model = Borrow
-        fields = ('book',)                
+        fields = ('book',)    
+
+class ReturnForm(forms.ModelForm):
+    class Meta:
+        model = Return
+        exclude = ['book', 'date',]                   
