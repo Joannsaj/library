@@ -24,6 +24,13 @@ class Books(models.Model):
     def __str__(self):
         return self.title
 
+    class Meta:
+        ordering = ('title',)    
+
+    @classmethod
+    def search_book(cls,search_term ):
+        return cls.objects.filter(title__icontains=search_term).all()
+
 class Borrow(models.Model):
     borrower = models.ForeignKey(User, on_delete=models.CASCADE)
     book = models.ForeignKey(Books, on_delete=models.CASCADE)

@@ -89,3 +89,14 @@ def view_books(request):
 def borrowed_books(request):
     books = Borrow.objects.all()
     return render(request,'borrowed_books.html',{"books":books})
+
+@login_required(login_url='/accounts/login/')
+def search_results(request):
+    if "book" in request.GET and request.GET["book"]:
+        search_term = request.GET.get("book")
+        books = Books.search_book(search_term)
+        message = f"{search_term}"
+        return render(request, 'search.html',{"message":message,"books": books})
+    else:
+        message = "You haven't searched for any term"
+        return render(request, 'search.html',{"message":message})
